@@ -1,0 +1,26 @@
+INFO  time: initialize in 0.9s
+WARN  Skipping build import for unsupported sbt version <unknown>
+WARN  no build target: C:\Users\iannb\OneDrive\Documents\BC Senior Year_\Large Scale Data Processing\Final-Project\src\main\scala\final_project\main.scala
+INFO  no build target: using presentation compiler with only scala-library
+WARN  code navigation does not work for the file 'C:\Users\iannb\OneDrive\Documents\BC Senior Year_\Large Scale Data Processing\Final-Project\src\main\scala\final_project\main.scala' because it doesn't belong to a build target.
+WARN  no build target: C:\Users\iannb\OneDrive\Documents\BC Senior Year_\Large Scale Data Processing\Final-Project\src\main\scala\final_project\main.scala
+WARN  no build target: 
+WARN  code navigation does not work for the file 'C:\Users\iannb\OneDrive\Documents\BC Senior Year_\Large Scale Data Processing\Final-Project\src\main\scala\final_project\main.scala' because it doesn't belong to a build target.
+WARN  no build target: C:\Users\iannb\OneDrive\Documents\BC Senior Year_\Large Scale Data Processing\Final-Project\src\main\scala\final_project\main.scala
+WARN  no build target: 
+something's wrong: no file:///C:/Users/iannb/OneDrive/Documents/BC%20Senior%20Year_/Large%20Scale%20Data%20Processing/Final-Project/src/main/scala/final_project/main.scala in Array[String]RangePosition(file:///C:/Users/iannb/OneDrive/Documents/BC%20Senior%20Year_/Large%20Scale%20Data%20Processing/Final-Project/src/main/scala/final_project/main.scala, 596, 596, 609)
+WARN  code navigation does not work for the file 'C:\Users\iannb\OneDrive\Documents\BC Senior Year_\Large Scale Data Processing\Final-Project\src\main\scala\final_project\main.scala' because it doesn't belong to a build target.
+WARN  code navigation does not work for the file 'C:\Users\iannb\OneDrive\Documents\BC Senior Year_\Large Scale Data Processing\Final-Project\src\main\scala\final_project\main.scala' because it doesn't belong to a build target.
+WARN  no build target: C:\Users\iannb\OneDrive\Documents\BC Senior Year_\Large Scale Data Processing\Final-Project\src\main\scala\final_project\main.scala
+WARN  no build target: 
+WARN  no build target: C:\Users\iannb\OneDrive\Documents\BC Senior Year_\Large Scale Data Processing\Final-Project\src\main\scala\final_project\main.scala
+WARN  no build target: 
+WARN  no build target: C:\Users\iannb\OneDrive\Documents\BC Senior Year_\Large Scale Data Processing\Final-Project\build.sbt
+WARN  no build target: C:\Users\iannb\OneDrive\Documents\BC Senior Year_\Large Scale Data Processing\Final-Project\src\main\scala\final_project\verifier.scala
+WARN  Skipping build import for unsupported sbt version <unknown>
+WARN  no build target: C:\Users\iannb\OneDrive\Documents\BC Senior Year_\Large Scale Data Processing\Final-Project\src\main\scala\final_project\main.scala
+WARN  no build target: 
+WARN  no build target: C:\Users\iannb\OneDrive\Documents\BC Senior Year_\Large Scale Data Processing\Final-Project\src\main\scala\final_project\main.scala
+WARN  no build target: 
+WARN  no build target: C:\Users\iannb\OneDrive\Documents\BC Senior Year_\Large Scale Data Processing\Final-Project\src\main\scala\final_project\main.scala
+WARN  no build target: 
