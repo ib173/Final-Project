@@ -8,8 +8,8 @@ Interestingly, many of the algorithms we researched utilize very similar process
 * Hopcroft-Karp Algorithm
     Originally gravitated towards this algorithm due to its ability to solve both bipartite and non-bipartite graphs. Generally, the algorithm repeatedly increases the size of a partial matching by finding augmenting paths. The process of discerning these augmenting paths is different for bipartite and non-bipartite or, more specifically, general graphs. Namely, the process of discerning augmenting paths for a general graph proves rather difficult.
       The general pseudocode of the algorithm given a bipartite graph is as follows:
-      1) Initialize Maximal Matching M as empty.
-      2) While there exists an Augmenting Path p Remove matching edges of p from M and add not-matching edges of p to M (This increases size of M by 1 as p starts and ends with a free vertex)
+      ###### 1) Initialize Maximal Matching M as empty.
+      ###### 2) While there exists an Augmenting Path p Remove matching edges of p from M and add not-matching edges of p to M (This increases size of M by 1 as p starts and ends with a free vertex)
       3) Return M.
     A potential solution to the aforementioned problem would be to convert our general graph to a bipartite graph. The problem that arises, however, is the process of ‘converting’ a general graph to bipartite would greatly alter our original graph, figuratively “cutting down” branches and edges to fit the necessities of a bipartite graph, namely a graph whose vertices can be divided into two disjoint and independent sets U and V such that every edge connects a vertex U to one in V.
 
@@ -21,9 +21,9 @@ Interestingly, many of the algorithms we researched utilize very similar process
     A general class of algorithms for the bipartite matching problem are “auction algorithms”. These algorithms interpret the input bipartite graph as a collection of bidders on one side and items on the other side, and hold an auction for finding a welfare-maximizing assignment of items to bidders which translates to a maximum matching of the input graph.
     Suppose in every iteration of the auction algorithm, we pick a maximal matching in the subgraph consisting of the unallocated bidders and all their minimum-price items; then, the auction terminates in a (1 − ε)-approximate matching of the input graph in only O(1/ε^2 ) iterations.
       Our general process for in attempting to implement this algorithm is as follows:
-      1.) treat all edges in the input graph as undirected
-      2.) all vertices are in the candidate MIS at the beginning
-      3.) compute working graph, which has as a vertex attribute of “status” which corresponds unknown or known
+      ##1.) treat all edges in the input graph as undirected 
+      ## 2.) all vertices are in the candidate MIS at the beginning 
+      *3.) compute working graph, which has as a vertex attribute of “status” which corresponds unknown or known 
       4.) remove the isolated vertices from the working graph
       5.) count the edges instead of vertices to help us avoid unnecessary iterations in the main loop
       6.) implement the following aggregate messages:
