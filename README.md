@@ -1,84 +1,42 @@
 # Large Scale Data Processing: Final Project
-## Graph matching
-For the final project, you are provided 6 CSV files, each containing an undirected graph, which can be found [here](https://drive.google.com/file/d/1khb-PXodUl82htpyWLMGGNrx-IzC55w8/view?usp=sharing). The files are as follows:  
+## Inability to complete the algorithm
+  *We originally attempted to implement the Hobcroft-Karp algorithm by forcing the graphs into the bipartite form, however we soon realized that this skews all the data and leaves us with some rather useless matchings. In doing so, we utilized the JgraphT library in Java to test out the matchings prior writing implicit functions in Scala leveraging the library.
+  *We then attempted to implement the bidding variant of Luby's algorithm for general graphs, but became stumped when it comes to the process of discerning the maximal matching prior to the maximum matching. Our attempt at the code is in the main.scala file although it does work. We elaborated on our attempt at implementation below.
+## Algorithms Considered
+Interestingly, many of the algorithms we researched utilize very similar processes with rather small changes. For example, the Gabow (1976) algorithm improves on the Edmonds algorithm with a run time of V^4 by eliminating the Blossom expansion, an algorithm in and of itself that could be altered to solve this problem. In this way, many of these algorithms are iterative upon the last, which makes for an interesting continuation.
 
-|           File name           |        Number of edges       |
-| ------------------------------| ---------------------------- |
-| com-orkut.ungraph.csv         | 117185083                    |
-| twitter_original_edges.csv    | 63555749                     |
-| soc-LiveJournal1.csv          | 42851237                     |
-| soc-pokec-relationships.csv   | 22301964                     |
-| musae_ENGB_edges.csv          | 35324                        |
-| log_normal_100.csv            | 2671                         |  
+* Hopcroft-Karp Algorithm
+    Originally gravitated towards this algorithm due to its ability to solve both bipartite and non-bipartite graphs. Generally, the algorithm repeatedly increases the size of a partial matching by finding augmenting paths. The process of discerning these augmenting paths is different for bipartite and non-bipartite or, more specifically, general graphs. Namely, the process of discerning augmenting paths for a general graph proves rather difficult.
+      The general pseudocode of the algorithm given a bipartite graph is as follows:
+      1) Initialize Maximal Matching M as empty.
+      2) While there exists an Augmenting Path p Remove matching edges of p from M and add not-matching edges of p to M (This increases size of M by 1 as p starts and ends with a free vertex)
+      3) Return M.
+    A potential solution to the aforementioned problem would be to convert our general graph to a bipartite graph. The problem that arises, however, is the process of ‘converting’ a general graph to bipartite would greatly alter our original graph, figuratively “cutting down” branches and edges to fit the necessities of a bipartite graph, namely a graph whose vertices can be divided into two disjoint and independent sets U and V such that every edge connects a vertex U to one in V.
 
-Your goal is to compute a matching as large as possible for each graph. 
+* Alon, Babai, Itai
+    We considered using the Israeli-Itai algorithm to find the maximal matching prior to augmenting along the matchings to find the maximum matching. The algorithm finds a maximal matching that is at least ½ of the number of matching as the maximum matching of the graph. Due to the nature of this algorithm it would have to be combined with one of the mentioned maximum matching algorithms to complete the assigned problem, namely implementing augmenting paths on top of the algorithm similar to the Hopcroft-Karp algorithm.
 
-### Input format
-Each input file consists of multiple lines, where each line contains 2 numbers that denote an undirected edge. For example, the input below is a graph with 3 edges.  
-1,2  
-3,2  
-3,4  
-
-### Output format
-Your output should be a CSV file listing all of the matched edges, 1 on each line. For example, the ouput below is a 2-edge matching of the above input graph. Note that `3,4` and `4,3` are the same since the graph is undirected.  
-1,2  
-4,3  
-
-### No template is provided
-For the final project, you will need to write everything from scratch. Feel free to consult previous projects for ideas on structuring your code. That being said, you are provided a verifier that can confirm whether or not your output is a matching. As usual, you'll need to compile it with
-```
-sbt clean package
-```  
-The verifier accepts 2 file paths as arguments, the first being the path to the file containing the initial graph and the second being the path to the file containing the matching. It can be ran locally with the following command (keep in mind that your file paths may be different):
-```
-// Linux
-spark-submit --master local[*] --class final_project.verifier data/log_normal_100.csv data/log_normal_100_matching.csv
-
-// Unix
-spark-submit --master "local[*]" --class "final_project.verifier" data/log_normal_100.csv data/log_normal_100_matching.csv
-```
-
-## Deliverables
-* The output file (matching) for each test case.
-  * For naming conventions, if the input file is `XXX.csv`, please name the output file `XXX_matching.csv`.
-  * You'll need to compress the output files into a single ZIP or TAR file before pushing to GitHub. If they're still too large, you can upload the files to Google Drive and include the sharing link in your report.
-* The code you've applied to produce the matchings.
-  * You should add your source code to the same directory as `verifier.scala` and push it to your repository.
-* A project report that includes the following:
-  * A table containing the size of the matching you obtained for each test case. The sizes must correspond to the matchings in your output files.
-  * An estimate of the amount of computation used for each test case. For example, "the program runs for 15 minutes on a 2x4 N1 core CPU in GCP." If you happen to be executing mulitple algorithms on a test case, report the total running time.
-  * Description(s) of your approach(es) for obtaining the matchings. It is possible to use different approaches for different cases. Please describe each of them as well as your general strategy if you were to receive a new test case.
-  * Discussion about the advantages of your algorithm(s). For example, does it guarantee a constraint on the number of shuffling rounds (say `O(log log n)` rounds)? Does it give you an approximation guarantee on the quality of the matching? If your algorithm has such a guarantee, please provide proofs or scholarly references as to why they hold in your report.
-* A live Zoom presentation during class time on 5/4 or 5/6.
-  * Note that the presentation date is before the final project submission deadline. This means that you could still be working on the project when you present. You may present the approaches you're currently trying. You can also present a preliminary result, like the matchings you have at the moment. After your presentation, you'll be given feedback to help you complete or improve your work.
-  * If any members of your group attend class in a different time zone, you may record and submit your presentation **by midnight on 5/3**.
-
-## Grading policy
-* Quality of matchings (40%)
-  * For each test case, you'll receive at least 70% of full credit if your matching size is at least half of the best answer in the class.
-  * **You will receive a 0 for any case where the verifier does not confirm that your output is a matching.** Please do not upload any output files that do not pass the verifier.
-* Project report (35%)
-  * Your report grade will be evaluated using the following criteria:
-    * Discussion of the merits of your algorithms
-    * Depth of technicality
-    * Novelty
-    * Completeness
-    * Readability
-* Presentation (15%)
-* Formatting (10%)
-  * If the format of your submission does not adhere to the instructions (e.g. output file naming conventions), points will be deducted in this category.
-
-## Submission via GitHub
-Delete your project's current **README.md** file (the one you're reading right now) and include your report as a new **README.md** file in the project root directory. Have no fear—the README with the project description is always available for reading in the template repository you created your repository from. For more information on READMEs, feel free to visit [this page](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/about-readmes) in the GitHub Docs. You'll be writing in [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown). Be sure that your repository is up to date and you have pushed all of your project's code. When you're ready to submit, simply provide the link to your repository in the Canvas assignment's submission.
-
-## You must do the following to receive full credit:
-1. Create your report in the ``README.md`` and push it to your repo.
-2. In the report, you must include your (and any partner's) full name in addition to any collaborators.
-3. Submit a link to your repo in the Canvas assignment.
-
-## Late submission penalties
-Beginning with the minute after the deadline, your submission will be docked a full letter grade (10%) for every 
-day that it is late. For example, if the assignment is due at 11:59 PM EST on Friday and you submit at 3:00 AM EST on Sunday,
-then you will be docked 20% and the maximum grade you could receive on that assignment is an 80%. 
-Late penalties are calculated from the last commit in the Git log.
-**If you make a commit more than 48 hours after the deadline, you will receive a 0.**
+* Dual ascent
+* Luby’s (bidding variant)
+    A general class of algorithms for the bipartite matching problem are “auction algorithms”. These algorithms interpret the input bipartite graph as a collection of bidders on one side and items on the other side, and hold an auction for finding a welfare-maximizing assignment of items to bidders which translates to a maximum matching of the input graph.
+    Suppose in every iteration of the auction algorithm, we pick a maximal matching in the subgraph consisting of the unallocated bidders and all their minimum-price items; then, the auction terminates in a (1 − ε)-approximate matching of the input graph in only O(1/ε^2 ) iterations.
+      Our general process for in attempting to implement this algorithm is as follows:
+      1.) treat all edges in the input graph as undirected
+      2.) all vertices are in the candidate MIS at the beginning
+      3.) compute working graph, which has as a vertex attribute of “status” which corresponds unknown or known
+      4.) remove the isolated vertices from the working graph
+      5.) count the edges instead of vertices to help us avoid unnecessary iterations in the main loop
+      6.) implement the following aggregate messages:
+            A. mark each unknown vertex as “Selected” on a random basis
+            B. the random decision can be discerned by a simple .5 p val “coin flip”
+            C. Mark the neighbors of each Selected vertex as Unknown
+            We cannot exclude vertices at this stage since otherwise we’ll probably exclude too many and skew our results
+      7.) identify the vertices to exclude, namely vertices near Selected vertices
+      8.) remove excluded vertices from candidate MIS
+      9.) keep non-isolated Unknown vertices in working graph
+      10.) remove the vertices that received no messages
+      11.) eventually, all vertices near Selected vertices are excluded from the working graph, but since all the vertices were in the candidate MIS at the beginning, we’re left with the Selected vertices and the Unknown vertices.
+  Advantages:
+    By implementing the matching an auction/bidding variant on top of Luby’s algorithm, we can gain a simple means of boosting the ½-approximation of maximal matching to a (1 − ε) approximation.
+    All we need to do to implement this approach is to be able to maintain and “status” of the items, and run maximal matching on the subgraph of the input between the unknown and known items.
+    Similarly to our failure in implementing the Hopcroft-Karp Algorithm, we struggled to figure out and implement the two step process of creating our maximal matching prior to running our algorithm for maximum matching. We originally were trying to implement this in one step, however we realized that would be almost impossible.
